@@ -1,0 +1,15 @@
+default: &default
+  adapter: postgresql
+  username: postgres
+  password: ruby33
+  encoding: unicode
+  host: <%= ENV.fetch('POSTGRES_HOST') { 'localhost' } %>
+  pool: <%= ENV.fetch('POSTGRES_POOL') { 5 } %>
+
+development:
+  <<: *default
+  database: approval_cycle_development
+
+test:
+  <<: *default
+  database: approval_cycle_test

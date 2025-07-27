@@ -1,4 +1,4 @@
-class CreateApprovalCycleObjectActivities < ActiveRecord::Migration[7.1]
+class CreateApprovalCycleObjectActivities < ActiveRecord::Migration[7.0]
   def change
     create_table :approval_cycle_object_activities do |t|
       t.references :object,     polymorphic: true, index: true, null: false

@@ -1,4 +1,4 @@
-class CreateApprovalCycleSetups < ActiveRecord::Migration[7.1]
+class CreateApprovalCycleSetups < ActiveRecord::Migration[7.0]
   def change
     create_table :approval_cycle_setups do |t|
       t.integer    :approval_cycle_setup_type

@@ -1,4 +1,4 @@
-class CreateApprovalCycleActionTakers < ActiveRecord::Migration[7.1]
+class CreateApprovalCycleActionTakers < ActiveRecord::Migration[7.0]
   def change
     create_table :approval_cycle_action_takers do |t|
       t.references :user,                 null: false, polymorphic: true, index: true

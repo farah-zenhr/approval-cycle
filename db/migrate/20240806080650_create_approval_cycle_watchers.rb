@@ -1,4 +1,4 @@
-class CreateApprovalCycleWatchers < ActiveRecord::Migration[7.1]
+class CreateApprovalCycleWatchers < ActiveRecord::Migration[7.0]
   def change
     create_table :approval_cycle_watchers do |t|
       t.integer    :action

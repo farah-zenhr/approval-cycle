@@ -1,4 +1,4 @@
-class CreateApprovalCycleApprovers < ActiveRecord::Migration[7.1]
+class CreateApprovalCycleApprovers < ActiveRecord::Migration[7.0]
   def change
     create_table :approval_cycle_approvers do |t|
       t.integer    :order,                null: false

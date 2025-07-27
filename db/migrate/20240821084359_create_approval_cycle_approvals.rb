@@ -1,4 +1,4 @@
-class CreateApprovalCycleApprovals < ActiveRecord::Migration[7.1]
+class CreateApprovalCycleApprovals < ActiveRecord::Migration[7.0]
   def change
     create_table :approval_cycle_approvals do |t|
       t.string     :status

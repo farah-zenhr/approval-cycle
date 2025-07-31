@@ -20,9 +20,12 @@ module ApprovalCycle
     private
 
     def update_previous_approval_cycle_versions
-      Setup.where(level:                   level,
-                  latest_setup_version_id: latest_setup_version_id)
-           .update_all(latest_setup_version_id: id)
+      # Mark all previous setups for the same level as not latest
+      previous_setups = Setup.where(level: level).where.not(id: id)
+      previous_setups.update_all(latest: false, latest_setup_version_id: id)
+
+      # Ensure this setup is marked as latest and points to itself
+      update_columns(latest: true, latest_setup_version_id: id)
     end
 
     def set_approvers_order

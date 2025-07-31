@@ -98,19 +98,14 @@ end
   rails generate approval_cycle:setup_types --status
 
   # Generate migration to add approval cycle columns to your models
+  # This will also automatically add ApprovalCycle::Approvable to your model files
   rails generate approval_cycle:setup_types
   ```
 6. Run the migrations:
   ```bash
   rails db:migrate
   ```
-7. Include `ApprovalCycle::Approvable` in your models that require approval workflows:
-  ```ruby
-  class YourModel < ApplicationRecord
-    include ApprovalCycle::Approvable
-  end
-  ```
-8. Approval cycle uses versioning for the approval cycle setups to not mess with old approvable records after updating the setup. To use the versioning, you must update your approval cycle setup with the `SetupUpdater` service:
+7. Approval cycle uses versioning for the approval cycle setups to not mess with old approvable records after updating the setup. To use the versioning, you must update your approval cycle setup with the `SetupUpdater` service:
   ```ruby
   ApprovalCycle::SetupUpdater.call(approval_cycle_setup: your_approval_cycle_setup_record, params: {attributes to update}, apply_to_versions: {true | false})
   ```
@@ -140,15 +135,10 @@ When you need to add new approval types to your application:
   rails db:migrate
   ```
 
-4. Include the `ApprovalCycle::Approvable` concern in your new model:
-  ```ruby
-  class NewModel < ApplicationRecord
-    include ApprovalCycle::Approvable
-  end
-  ```
+Note: The `ApprovalCycle::Approvable` concern will be automatically added to your new model when you run the generator.
 
 ## Generator Commands
 
-- `rails generate approval_cycle:install` - Creates the initializer file
+- `rails generate approval_cycle:install` - Creates the initializer file and copies migrations
 - `rails generate approval_cycle:setup_types --status` - Shows which approval cycle columns are missing for configured types
-- `rails generate approval_cycle:setup_types` - Generates migration to add missing approval cycle columns to your configured models
+- `rails generate approval_cycle:setup_types` - Generates migration to add missing approval cycle columns to your configured models and automatically adds `ApprovalCycle::Approvable` concern to the model files

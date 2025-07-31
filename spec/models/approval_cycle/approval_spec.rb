@@ -10,8 +10,8 @@ module ApprovalCycle
     let(:fourth_user)   { users.fourth }
     let(:user)          { create(:dummy_user) }
     let(:approver)      { create(:approver, user_id: user.id, user_type: 'DummyUser', approval_cycle_setup: setup, order: 10) }
-    let(:approvers)     { [ { user_id: first_user.id, order: 0, user_type: 'DummyUser' }, { user_id: second_user.id, order: 1, user_type: 'DummyUser' }, { user_id: third_user.id, order: 2, user_type: 'DummyUser' } ] }
-    let(:setup)         { create(:setup, level: company, approval_cycle_setup_type: :dummy_request, modifier: user, approval_cycle_approvers_attributes: approvers, approval_cycle_watchers_attributes: [ { user_id: user.id, user_type: 'DummyUser', action: 'both' } ], approval_cycle_action_takers_attributes: [ { user_id: user.id, user_type: 'DummyUser' } ]) }
+    let(:approvers)     { [{ user_id: first_user.id, order: 0, user_type: 'DummyUser' }, { user_id: second_user.id, order: 1, user_type: 'DummyUser' }, { user_id: third_user.id, order: 2, user_type: 'DummyUser' }] }
+    let(:setup)         { create(:setup, level: company, approval_cycle_setup_type: :dummy_request, modifier: user, approval_cycle_approvers_attributes: approvers, approval_cycle_watchers_attributes: [{ user_id: user.id, user_type: 'DummyUser', action: 'both' }], approval_cycle_action_takers_attributes: [{ user_id: user.id, user_type: 'DummyUser' }]) }
     let(:second_setup)  { create(:setup, level: company, modifier: user, approval_cycle_setup_type: :dummy_request) }
     let(:dummy_request) { create(:dummy_request, approval_cycle_setup: setup, approval_cycle_status: :pending, modifier: user) }
     let(:subject)       { create(:approval, approval_cycle_approver: approver, approvable: dummy_request) }
@@ -37,10 +37,10 @@ module ApprovalCycle
           ApprovalCycle.configure do |config|
             config.approval_cycle_setup_types = { dummy_request: 0 }
             config.approval_statuses = {
-              pending: "pending",
-              approved: "approved",
-              rejected: "rejected",
-              cancelled: "cancelled"
+              pending:   'pending',
+              approved:  'approved',
+              rejected:  'rejected',
+              cancelled: 'cancelled'
             }
           end
 
@@ -51,11 +51,11 @@ module ApprovalCycle
 
         it 'allows custom statuses to be configured' do
           expect(ApprovalCycle.configuration.approval_statuses).to eq({
-            pending: "pending",
-            approved: "approved",
-            rejected: "rejected",
-            cancelled: "cancelled"
-          })
+                                                                        pending:   'pending',
+                                                                        approved:  'approved',
+                                                                        rejected:  'rejected',
+                                                                        cancelled: 'cancelled'
+                                                                      })
         end
       end
     end
@@ -98,7 +98,7 @@ module ApprovalCycle
         context 'when current approval is first approval' do
           it 'does not update next approval received_at' do
             expect(current_approval.count).to          eq(1)
-            expect(current_approval.pluck(:status)).to eq([ 'rejected' ])
+            expect(current_approval.pluck(:status)).to eq(['rejected'])
           end
         end
       end
@@ -118,7 +118,7 @@ module ApprovalCycle
         end
 
         it 'creates all other approvals with NIL received_at and status' do
-          expect(Approval.last(2).pluck(:approval_cycle_approver_id, :received_at, :status)).to match_array(awaiting_approvals.map { |approver| [ approver.id, nil, 'pending' ] })
+          expect(Approval.last(2).pluck(:approval_cycle_approver_id, :received_at, :status)).to match_array(awaiting_approvals.map { |approver| [approver.id, nil, 'pending'] })
         end
       end
     end
@@ -129,7 +129,7 @@ module ApprovalCycle
 
       context 'when created_by is approver' do
         context 'when approver is first and only approver' do
-          let(:approvers) { [ { user_id: user.id, order: 0, user_type: 'DummyUser' } ] }
+          let(:approvers) { [{ user_id: user.id, order: 0, user_type: 'DummyUser' }] }
 
           it 'approves request' do
             expect(request_status).to         eq('approved')
@@ -138,7 +138,7 @@ module ApprovalCycle
         end
 
         context 'when approver is last approver' do
-          let(:approvers) { [ { user_id: first_user.id, order: 0, user_type: 'DummyUser' }, { user_id: user.id, order: 1, user_type: 'DummyUser' } ] }
+          let(:approvers) { [{ user_id: first_user.id, order: 0, user_type: 'DummyUser' }, { user_id: user.id, order: 1, user_type: 'DummyUser' }] }
 
           before { Approval.first.approve! }
 
@@ -149,7 +149,7 @@ module ApprovalCycle
         end
 
         context 'when approver is not last approver' do
-          let(:approvers) { [ { user_id: first_user.id, order: 0, user_type: 'DummyUser' }, { user_id: user.id, order: 1, user_type: 'DummyUser' }, { user_id: third_user.id, order: 2, user_type: 'DummyUser' } ] }
+          let(:approvers) { [{ user_id: first_user.id, order: 0, user_type: 'DummyUser' }, { user_id: user.id, order: 1, user_type: 'DummyUser' }, { user_id: third_user.id, order: 2, user_type: 'DummyUser' }] }
 
           before { Approval.first.approve! }
 
@@ -162,7 +162,7 @@ module ApprovalCycle
       end
 
       context 'when created_by is not approver' do
-        let(:approvers) { [ { user_id: first_user.id, order: 0, user_type: 'DummyUser' } ] }
+        let(:approvers) { [{ user_id: first_user.id, order: 0, user_type: 'DummyUser' }] }
 
         it 'does not auto approve' do
           expect(request_status).to         eq('pending')

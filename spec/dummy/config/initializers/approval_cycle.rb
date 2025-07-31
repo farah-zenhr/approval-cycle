@@ -3,7 +3,7 @@ ApprovalCycle.configure do |config|
   # Each type should have a unique integer value
   # Example:
   # config.approval_cycle_setup_types = {
-  #   purchase_order: 0,
+  #   dummy_request: 0,
   #   expense_report: 1,
   #   document_approval: 2
   # }
@@ -25,6 +25,7 @@ ApprovalCycle.configure do |config|
   #   cancelled: "cancelled",
   #   on_hold: "on_hold"
   # }
+
   config.approval_statuses = {
     pending:                  'pending',
     approved:                 'approved',

@@ -27,13 +27,14 @@ module ApprovalCycle
       def create_migration_file
         if no_changes_needed?
           say "All configured types already have approval cycle columns. No migration needed.", :green
-          return
+        else
+          migration_template(
+            'setup_types_migration.rb.erb',
+            'db/migrate/add_approval_cycle_to_configured_types.rb'
+          )
         end
 
-        migration_template(
-          'setup_types_migration.rb.erb',
-          'db/migrate/add_approval_cycle_to_configured_types.rb'
-        )
+        add_approvable_concern_to_models
       end
 
       def show_status
@@ -86,6 +87,49 @@ module ApprovalCycle
 
       def approval_cycle_columns
         %w[approval_cycle_setup_id approval_cycle_status is_approval_cycle_reset]
+      end
+
+      def add_approvable_concern_to_models
+        say "\nAdding ApprovalCycle::Approvable concern to models...", :blue
+
+        configured_types.each do |type|
+          model_name = type.to_s.camelize
+          model_file_path = "app/models/#{type}.rb"
+
+          if File.exist?(model_file_path)
+            add_concern_to_model(model_file_path, model_name, type)
+          else
+            say "  ✗ Model file not found: #{model_file_path}", :red
+          end
+        end
+      end
+
+      def add_concern_to_model(model_file_path, model_name, type)
+        content = File.read(model_file_path)
+
+        if content.include?("include ApprovalCycle::Approvable")
+          say "  ✓ #{model_name} already includes ApprovalCycle::Approvable", :green
+          return
+        end
+
+        # Find the class definition line
+        class_line_match = content.match(/^(\s*)class\s+#{model_name}\s*<.*$/)
+        unless class_line_match
+          say "  ✗ Could not find class definition for #{model_name}", :red
+          return
+        end
+
+        # Insert the concern after the class definition
+        indent = class_line_match[1]
+        concern_line = "#{indent}  include ApprovalCycle::Approvable\n"
+
+        updated_content = content.sub(
+          /(^#{Regexp.escape(class_line_match[0])}\n)/,
+          "\\1#{concern_line}\n"
+        )
+
+        File.write(model_file_path, updated_content)
+        say "  ✓ Added ApprovalCycle::Approvable to #{model_name}", :green
       end
     end
   end

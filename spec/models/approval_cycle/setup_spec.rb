@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 module ApprovalCycle
   RSpec.describe Setup, type: :model do
     let(:company)              { create(:company) }

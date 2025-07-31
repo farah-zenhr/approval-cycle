@@ -10,9 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_31_094101) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_31_123227) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "approval_cycle_action_takers", force: :cascade do |t|
@@ -63,15 +62,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_31_094101) do
     t.integer "approval_cycle_setup_type"
     t.integer "skip_after"
     t.string "name", null: false
-    t.virtual "latest", type: :boolean, as: "(latest_setup_version_id = id)", stored: true
-    t.bigint "latest_setup_version_id", default: -> { "currval('approval_cycle_setups_id_seq'::regclass)" }, null: false
+    t.boolean "latest", default: true, null: false
+    t.bigint "latest_setup_version_id"
     t.string "level_type", null: false
     t.bigint "level_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["latest_setup_version_id"], name: "index_approval_cycle_setups_on_latest_setup_version_id"
     t.index ["level_type", "level_id"], name: "index_approval_cycle_setups_on_level"
-    t.index ["name"], name: "index_approval_cycle_setups_on_name", opclass: :gin_trgm_ops, using: :gin
+    t.index ["name"], name: "index_approval_cycle_setups_on_name"
   end
 
   create_table "approval_cycle_watchers", force: :cascade do |t|

@@ -7,22 +7,22 @@ module ApprovalCycle
     describe '#approval_statuses' do
       it 'has default approval statuses' do
         expect(config.approval_statuses).to eq({
-          pending: "pending",
-          rejected: "rejected",
-          approved: "approved",
-          skipped: "skipped",
-          auto_approved: "auto_approved",
-          skipped_after_rejection: "skipped_after_rejection",
-          skipped_after_withdrawal: "skipped_after_withdrawal"
-        })
+                                                 pending:                  'pending',
+                                                 rejected:                 'rejected',
+                                                 approved:                 'approved',
+                                                 skipped:                  'skipped',
+                                                 auto_approved:            'auto_approved',
+                                                 skipped_after_rejection:  'skipped_after_rejection',
+                                                 skipped_after_withdrawal: 'skipped_after_withdrawal'
+                                               })
       end
 
       it 'allows custom approval statuses to be set' do
         custom_statuses = {
-          pending: "pending",
-          approved: "approved",
-          rejected: "rejected",
-          cancelled: "cancelled"
+          pending:   'pending',
+          approved:  'approved',
+          rejected:  'rejected',
+          cancelled: 'cancelled'
         }
 
         config.approval_statuses = custom_statuses
@@ -53,19 +53,19 @@ module ApprovalCycle
     it 'allows configuration of approval statuses' do
       ApprovalCycle.configure do |config|
         config.approval_statuses = {
-          pending: "pending",
-          approved: "approved",
-          rejected: "rejected",
-          cancelled: "cancelled"
+          pending:   'pending',
+          approved:  'approved',
+          rejected:  'rejected',
+          cancelled: 'cancelled'
         }
       end
 
       expect(ApprovalCycle.configuration.approval_statuses).to eq({
-        pending: "pending",
-        approved: "approved",
-        rejected: "rejected",
-        cancelled: "cancelled"
-      })
+                                                                    pending:   'pending',
+                                                                    approved:  'approved',
+                                                                    rejected:  'rejected',
+                                                                    cancelled: 'cancelled'
+                                                                  })
     end
 
     it 'allows configuration of setup types' do
@@ -74,8 +74,8 @@ module ApprovalCycle
       end
 
       expect(ApprovalCycle.configuration.approval_cycle_setup_types).to eq({
-        dummy_request: 0
-      })
+                                                                             dummy_request: 0
+                                                                           })
     end
   end
 end

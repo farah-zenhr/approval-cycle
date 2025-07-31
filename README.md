@@ -1,10 +1,28 @@
 # ApprovalCycle
-Short description and motivation.
+
+ApprovalCycle is a flexible Rails engine that provides a comprehensive approval workflow system for your Rails applications. It allows you to easily add multi-step approval processes to any model, with support for parallel approvals, watchers, action takers, and versioned approval setups.
+
+## Features
+
+- **Multi-step approval workflows** - Define complex approval chains with multiple approvers
+- **Polymorphic approvers** - Use any model as an approver (Users, Roles, etc.)
+- **Parallel approvals** - Support for approvals that can happen simultaneously
+- **Watchers and Action Takers** - Notify stakeholders and define who can take actions
+- **Versioned setups** - Update approval workflows without affecting existing requests
+- **Flexible configuration** - Easy setup through Rails generators and initializers
+- **Status tracking** - Built-in status management (draft, pending, approved, rejected, etc.)
 
 ## Usage
-How to use my plugin.
+
+Perfect for applications that need approval workflows for:
+- Purchase orders and expense reports
+- Document approvals and reviews
+- User access requests
+- Content publishing workflows
+- Any business process requiring structured approvals
 
 ## Installation
+
 Add this line to your application's Gemfile:
 
 ```ruby

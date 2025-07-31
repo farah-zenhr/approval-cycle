@@ -11,6 +11,5 @@ ApprovalCycle.configure do |config|
   config.approval_cycle_setup_types = {
     # Add your approvable models here
     # model_name: integer_value
-    dummy_request: 0
   }
 end

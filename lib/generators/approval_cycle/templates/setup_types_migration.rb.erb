@@ -1,0 +1,21 @@
+class <%= migration_class_name %> < ActiveRecord::Migration[<%= ActiveRecord::Migration.current_version %>]
+  def change
+    <% configured_types.each do |type| %>
+    <% table_name = type.to_s.pluralize %>
+    <% if table_exists?(table_name) %>
+    # Add approval cycle columns to <%= table_name %>
+    <% unless column_exists?(table_name, 'approval_cycle_setup_id') %>
+    add_reference :<%= table_name %>, :approval_cycle_setup, foreign_key: true, index: true
+    <% end %>
+    <% unless column_exists?(table_name, 'approval_cycle_status') %>
+    add_column :<%= table_name %>, :approval_cycle_status, :integer
+    <% end %>
+    <% unless column_exists?(table_name, 'is_approval_cycle_reset') %>
+    add_column :<%= table_name %>, :is_approval_cycle_reset, :boolean, default: false
+    <% end %>
+    <% else %>
+    # Warning: Table <%= table_name %> does not exist. Skipping...
+    <% end %>
+    <% end %>
+  end
+end

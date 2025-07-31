@@ -2,7 +2,7 @@ class CreateApprovalCycleWatchers < ActiveRecord::Migration[7.0]
   def change
     create_table :approval_cycle_watchers do |t|
       t.integer    :action
-      t.references :user,           null: false, polymorphic: true, index: true
+      t.references :user, null: false, polymorphic: true, index: true
       t.references :approval_cycle_setup, null: false, foreign_key: true, index: true
       t.timestamps
     end

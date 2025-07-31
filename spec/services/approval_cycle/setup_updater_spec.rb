@@ -1,6 +1,8 @@
+require 'rails_helper'
+
 module ApprovalCycle
-  RSpec.describe SetupUpdater, type: :service do
-    describe '#call' do
+  RSpec.describe SetupUpdater, type: :service do # rubocop:disable Metrics/BlockLength
+    describe '#call' do # rubocop:disable Metrics/BlockLength
       let(:company)            { create(:company) }
       let(:user)               { create(:dummy_user) }
       let(:setup_attrs)        { { approval_cycle_approvers_attributes: [ { user_id: user.id, order: 0, user_type: 'DummyUser' } ], approval_cycle_watchers_attributes: [ { user_id: user.id, action: 'both', user_type: 'DummyUser' } ], approval_cycle_action_takers_attributes: [ { user_id: user.id, user_type: 'DummyUser' } ] } }
@@ -14,7 +16,7 @@ module ApprovalCycle
 
       before { dummy_request }
 
-      context 'with valid params' do
+      context 'with valid params' do # rubocop:disable Metrics/BlockLength
         context 'when apply_to_versions is false' do
           let(:params) { update_params }
 

@@ -5,9 +5,9 @@ module ApprovalCycle::Approvable
     include ApprovalCycle::ActsAsTrackable
     acts_as_trackable
 
-    belongs_to :approval_cycle_setup, class_name: "ApprovalCycle::Setup", foreign_key: "approval_cycle_setup_id"
-    has_many   :approval_cycle_approvers, through: :approval_cycle_setup, class_name: "ApprovalCycle::Approver"
-    has_many   :approval_cycle_approvals, foreign_key: :approvable_id, dependent: :destroy, class_name: "ApprovalCycle::Approval"
+    belongs_to :approval_cycle_setup, class_name: 'ApprovalCycle::Setup', foreign_key: 'approval_cycle_setup_id'
+    has_many   :approval_cycle_approvers, through: :approval_cycle_setup, class_name: 'ApprovalCycle::Approver'
+    has_many   :approval_cycle_approvals, foreign_key: :approvable_id, dependent: :destroy, class_name: 'ApprovalCycle::Approval'
 
     before_validation :link_to_approval_cycle_setup, on: %i[create update], if: -> { requires_linking_to_approval_cycle_setup? }
 
@@ -69,11 +69,11 @@ module ApprovalCycle::Approvable
     end
 
     def requires_building_approvals?
-      approval_cycle_status_was == "draft" && approval_cycle_status_pending?
+      approval_cycle_status_was == 'draft' && approval_cycle_status_pending?
     end
 
     def allowed_to_resync_approval_cycle?
-      raise "resync_approval_cycle! should only be called within the context of ApprovalCycle::SetupUpdater" unless caller.any? { |c| c.include?("setup_updater") }
+      raise 'resync_approval_cycle! should only be called within the context of ApprovalCycle::SetupUpdater' unless caller.any? { |c| c.include?('setup_updater') }
 
       new_approval_cycle_setup_version.present?
     end

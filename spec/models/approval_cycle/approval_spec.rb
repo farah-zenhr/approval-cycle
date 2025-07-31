@@ -28,7 +28,36 @@ module ApprovalCycle
     end
 
     describe 'Enums' do
-      it { should define_enum_for(:status).with_values({ pending: 'pending', rejected: 'rejected', approved: 'approved', skipped: 'skipped', auto_approved: 'auto_approved', skipped_after_rejection: 'skipped_after_rejection', skipped_after_withdrawal: 'skipped_after_withdrawal' }).backed_by_column_of_type(:string).with_prefix(true) }
+      it { should define_enum_for(:status).with_values({ pending: 'pending', approved: 'approved', rejected: 'rejected', cancelled: 'cancelled', on_hold: 'on_hold', auto_approved: 'auto_approved', skipped_after_rejection: 'skipped_after_rejection', skipped_after_withdrawal: 'skipped_after_withdrawal' }).backed_by_column_of_type(:string).with_prefix(true) }
+
+      context 'with custom approval statuses' do
+        around do |example|
+          original_config = ApprovalCycle.configuration
+          ApprovalCycle.configuration = ApprovalCycle::Configuration.new
+          ApprovalCycle.configure do |config|
+            config.approval_cycle_setup_types = { dummy_request: 0 }
+            config.approval_statuses = {
+              pending: "pending",
+              approved: "approved",
+              rejected: "rejected",
+              cancelled: "cancelled"
+            }
+          end
+
+          example.run
+
+          ApprovalCycle.configuration = original_config
+        end
+
+        it 'allows custom statuses to be configured' do
+          expect(ApprovalCycle.configuration.approval_statuses).to eq({
+            pending: "pending",
+            approved: "approved",
+            rejected: "rejected",
+            cancelled: "cancelled"
+          })
+        end
+      end
     end
 
     describe '#update_next_approval_received_at' do

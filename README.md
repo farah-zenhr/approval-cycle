@@ -62,6 +62,36 @@ The gem is available as open source under the terms of the [MIT License](https:/
     config.approval_cycle_setup_types = { dummy_request: 0 }
   end
   ```
+
+## Configuration Options
+
+### Approval Types
+Define which models in your application can have approval workflows:
+```ruby
+ApprovalCycle.configure do |config|
+  config.approval_cycle_setup_types = {
+    dummy_request: 0,
+    purchase_order: 1,
+    expense_report: 2
+  }
+end
+```
+
+### Approval Statuses
+Customize the approval statuses available in your application. If not provided, the gem will use the default statuses:
+```ruby
+ApprovalCycle.configure do |config|
+  config.approval_statuses = {
+    pending: "pending",
+    approved: "approved",
+    rejected: "rejected",
+    cancelled: "cancelled",
+    on_hold: "on_hold"
+  }
+end
+```
+
+**Default statuses**: `pending`, `rejected`, `approved`, `skipped`, `auto_approved`, `skipped_after_rejection`, `skipped_after_withdrawal`
 5. Generate migrations for your configured types:
   ```bash
   # Check which columns are missing

@@ -74,7 +74,7 @@ module ApprovalCycle
       end
 
       def configured_types
-        ApprovalCycle.configuration.approval_cycle_setup_types.keys
+        (ApprovalCycle.configuration&.approval_cycle_setup_types || {}).keys
       end
 
       def table_exists?(table_name)

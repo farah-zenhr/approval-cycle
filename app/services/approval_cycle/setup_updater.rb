@@ -45,7 +45,7 @@ module ApprovalCycle
     def preloaded_associations
       statuses = %i[pending draft]
       associations_records = []
-      setup_associations = ApprovalCycle.configuration.approval_cycle_setup_types.keys.map(&:to_s).map(&:pluralize)
+      setup_associations = (ApprovalCycle.configuration&.approval_cycle_setup_types || {}).keys.map(&:to_s).map(&:pluralize)
       setup_associations.each do |association|
         associations_records << approval_cycle_setup.send(association)
                                                     .where(approval_cycle_status: statuses)

@@ -1,3 +1,10 @@
+# Ruby 3.3+ compatibility fix for Rails 7.0.x
+begin
+  require 'logger'
+rescue LoadError
+  # Logger already loaded
+end
+
 ApprovalCycle.configure do |config|
   # Define your approval cycle types here
   # Each type should have a unique integer value

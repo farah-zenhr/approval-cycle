@@ -1,6 +1,7 @@
-require "approval_cycle/version"
-require "approval_cycle/engine"
-require "approval_cycle/configuration"
+require 'logger'
+require 'approval_cycle/version'
+require 'approval_cycle/engine'
+require 'approval_cycle/configuration'
 
 module ApprovalCycle
   class << self

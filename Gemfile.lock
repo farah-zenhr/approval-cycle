@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     approval_cycle (0.1.1.pre)
-      pg
       rails (>= 7.0.8)
 
 GEM
@@ -267,6 +266,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
+  pg
   rspec-rails
   rubocop-rails-omakase
   shoulda-matchers

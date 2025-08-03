@@ -22,12 +22,12 @@ Gem::Specification.new do |spec|
     Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
   end
 
-  spec.add_dependency 'pg'
   spec.add_dependency 'rails', '>= 7.0.8'
 
   spec.add_development_dependency 'dotenv-rails'
   spec.add_development_dependency 'factory_bot_rails'
   spec.add_development_dependency 'faker'
+  spec.add_development_dependency 'pg'
   spec.add_development_dependency 'rspec-rails'
   spec.add_development_dependency 'shoulda-matchers'
 

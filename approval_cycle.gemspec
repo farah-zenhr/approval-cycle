@@ -23,7 +23,9 @@ Gem::Specification.new do |spec|
   end
 
   spec.required_ruby_version = '>= 3.0.0'
-  spec.add_dependency 'rails', '>= 6.0'
+  
+  # Support Rails 7.0+ (see installation notes for Ruby 3.3+ compatibility)
+  spec.add_dependency 'rails', '>= 7.0.0', '< 8.0'
 
   spec.add_development_dependency 'dotenv-rails'
   spec.add_development_dependency 'factory_bot_rails'

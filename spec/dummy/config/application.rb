@@ -1,5 +1,8 @@
 require_relative "boot"
 
+# Ruby 3.3 + Rails 7.0 compatibility fix
+require "logger" if RUBY_VERSION >= "3.3.0"
+
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"

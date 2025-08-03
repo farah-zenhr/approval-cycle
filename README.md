@@ -39,6 +39,46 @@ Or install it yourself as:
 $ gem install approval_cycle
 ```
 
+### Ruby 3.3 + Rails 7.0 Compatibility
+
+If you're using Ruby 3.3+ with Rails 7.0.x, you may encounter a `Logger` constant error. To fix this, add the following line to the **TOP** of your `config/application.rb` file, **BEFORE** the `Bundler.require` line:
+
+**Simple fix:**
+```ruby
+# Ruby 3.3 + Rails 7.0 compatibility fix
+require "logger" if RUBY_VERSION >= "3.3.0"
+```
+
+**Comprehensive fix** (recommended if you encounter persistent issues):
+```ruby
+# Ruby 3.3 + Rails 7.0.x Compatibility Fix
+if RUBY_VERSION >= '3.3.0'
+  begin
+    require 'logger'
+  rescue LoadError
+    # Logger already available
+  end
+  
+  # Ensure Logger constant is available for ActiveSupport
+  unless defined?(::Logger)
+    require 'logger'
+  end
+end
+```
+
+Example placement in `config/application.rb`:
+```ruby
+require_relative "boot"
+
+# Ruby 3.3 + Rails 7.0 compatibility fix
+require "logger" if RUBY_VERSION >= "3.3.0"
+
+require "rails"
+# ... rest of your application.rb
+```
+
+This fix is automatically suggested when you run `rails generate approval_cycle:install`.
+
 ## Contributing
 Contribution directions go here.
 

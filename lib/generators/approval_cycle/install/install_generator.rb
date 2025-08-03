@@ -40,6 +40,19 @@ module ApprovalCycle
       def show_readme
         say "\nApprovalCycle installation complete!", :green
         say '=' * 50
+        
+        # Check for Ruby 3.3 + Rails 7.0 compatibility issue
+        if RUBY_VERSION >= '3.3.0' && Rails::VERSION::MAJOR == 7 && Rails::VERSION::MINOR == 0
+          say 'IMPORTANT: Ruby 3.3 + Rails 7.0 Compatibility:', :red
+          say 'If you encounter Logger errors, add this to the TOP of config/application.rb:', :yellow
+          say 'BEFORE the "Bundler.require" line:', :yellow
+          say ''
+          say '# Ruby 3.3 + Rails 7.0 compatibility fix'
+          say 'require "logger" if RUBY_VERSION >= "3.3.0"'
+          say ''
+          say '=' * 50
+        end
+        
         say 'Next steps:', :bold
         say '1. Configure your approval types in config/initializers/approval_cycle.rb'
         say "2. Run 'rails db:migrate' to create the approval cycle tables"

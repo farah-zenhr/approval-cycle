@@ -1,7 +1,7 @@
 module ApprovalCycle
   class Watcher < ApplicationRecord
-    include Associatable
-    include Enumable
-    include Validatable
+    include ApprovalCycle::Associatable
+    include ApprovalCycle::Enumable
+    include ApprovalCycle::Validatable
   end
 end

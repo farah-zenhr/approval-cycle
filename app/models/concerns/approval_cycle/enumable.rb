@@ -1,4 +1,4 @@
-module Enumable
+module ApprovalCycle::Enumable
   extend ActiveSupport::Concern
 
   included do

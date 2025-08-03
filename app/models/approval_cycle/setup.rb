@@ -1,10 +1,10 @@
 module ApprovalCycle
   class Setup < ApplicationRecord
-    include Associatable
-    include Enumable
-    include Validatable
-    include Delegatable
-    include ActsAsTrackable
+    include ApprovalCycle::Associatable
+    include ApprovalCycle::Enumable
+    include ApprovalCycle::Validatable
+    include ApprovalCycle::Delegatable
+    include ApprovalCycle::ActsAsTrackable
 
     acts_as_trackable :latest_setup_version_id
 

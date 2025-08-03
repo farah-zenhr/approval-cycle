@@ -1,4 +1,4 @@
-module Validatable
+module ApprovalCycle::Validatable
   extend ActiveSupport::Concern
 
   included do

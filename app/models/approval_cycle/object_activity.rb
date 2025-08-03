@@ -2,6 +2,6 @@ module ApprovalCycle
   class ObjectActivity < ApplicationRecord
     self.record_timestamps = false
 
-    include Associatable
+    include ApprovalCycle::Associatable
   end
 end

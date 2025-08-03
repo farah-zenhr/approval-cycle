@@ -1,10 +1,10 @@
-module Trackable
+module ApprovalCycle::Trackable
   extend ActiveSupport::Concern
 
   included do
     attr_accessor :modifier
 
-    has_one :approval_cycle_object_activity, as: :object, dependent: :destroy, class_name: "ApprovalCycle::ObjectActivity"
+    has_one :approval_cycle_object_activity, as: :object, dependent: :destroy, class_name: 'ApprovalCycle::ObjectActivity'
 
     after_commit :log_object_activity, on: %i[create update], if: -> { modifier.present? }
   end

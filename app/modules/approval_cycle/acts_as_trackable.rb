@@ -9,7 +9,7 @@ module ApprovalCycle::ActsAsTrackable
     def acts_as_trackable(column_name = :id)
       self.trackable_column = column_name
       validate_trackable_column
-      include Trackable
+      include ApprovalCycle::Trackable
     end
 
     private

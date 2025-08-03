@@ -1,8 +1,8 @@
 module ApprovalCycle
   class Approval < ApplicationRecord
-    include Associatable
-    include Delegatable
-    include Enumable
+    include ApprovalCycle::Associatable
+    include ApprovalCycle::Delegatable
+    include ApprovalCycle::Enumable
 
     after_commit :auto_approve, on: %i[create update], if: -> { received_at.present? && status_pending? }
 

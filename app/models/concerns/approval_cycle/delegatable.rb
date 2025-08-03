@@ -1,4 +1,4 @@
-module Delegatable
+module ApprovalCycle::Delegatable
   extend ActiveSupport::Concern
 
   included do

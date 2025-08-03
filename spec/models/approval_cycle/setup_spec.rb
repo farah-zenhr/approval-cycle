@@ -76,6 +76,8 @@ module ApprovalCycle
 
       context 'when only one version of the approval cycle setup exists' do
         it 'sets the latest_setup_version_id of the approval cycle setup to the id of the new version' do
+          setup
+          setup.reload
           expect(setup.latest_setup_version_id).to eq(setup.id)
         end
 

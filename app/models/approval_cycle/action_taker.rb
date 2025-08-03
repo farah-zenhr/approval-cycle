@@ -1,6 +1,6 @@
 module ApprovalCycle
   class ActionTaker < ApplicationRecord
-    include Associatable
-    include Validatable
+    include ApprovalCycle::Associatable
+    include ApprovalCycle::Validatable
   end
 end

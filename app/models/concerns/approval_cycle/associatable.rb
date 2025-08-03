@@ -1,4 +1,4 @@
-module Associatable
+module ApprovalCycle::Associatable
   extend ActiveSupport::Concern
 
   included do

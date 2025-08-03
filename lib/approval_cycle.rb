@@ -1,5 +1,3 @@
-require "logger" if RUBY_VERSION >= "3.3"
-require "observer" if RUBY_VERSION >= "3.3"
 require "approval_cycle/version"
 require "approval_cycle/engine"
 require "approval_cycle/configuration"

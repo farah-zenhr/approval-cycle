@@ -24,6 +24,12 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'pg'
   spec.add_dependency 'rails', '>= 7.0.8'
+  
+  # Add logger and observer for Ruby 3.3+ compatibility
+  if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('3.3.0')
+    spec.add_dependency 'logger', '>= 1.4'
+    spec.add_dependency 'observer', '>= 0.1'
+  end
 
   spec.add_development_dependency 'dotenv-rails'
   spec.add_development_dependency 'factory_bot_rails'

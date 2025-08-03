@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     approval_cycle (0.1.1.pre)
+      logger (>= 1.4)
       rails (>= 7.0.8)
 
 GEM
